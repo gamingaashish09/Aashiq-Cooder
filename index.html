@@ -1,0 +1,128 @@
+#include <iostream>
+#include <cmath>
+#include <thread>
+#include <chrono>
+#include <cstdlib>
+
+using namespace std;
+
+void wait(int ms) {
+    this_thread::sleep_for(chrono::milliseconds(ms));
+}
+
+void clearScreen() {
+    cout << "\033[2J\033[H";
+}
+
+// Heart shape
+void showHeart(int size) {
+    clearScreen();
+
+    cout << "\033[1;36m"; // Cyan
+
+    for (float y = 1.5; y >= -1.5; y -= 0.12) {
+
+        for (float x = -1.6; x <= 1.6; x += 0.06) {
+
+            float a = x / size;
+            float b = y / size;
+
+            float heart =
+                pow(a*a + b*b - 1, 3)
+                - a*a * pow(b, 3);
+
+            if (heart <= 0)
+                cout << "♥";
+            else
+                cout << " ";
+        }
+
+        cout << "\n";
+    }
+
+    cout << "\033[0m";
+}
+
+// Burst effect
+void burst() {
+    for (int i = 0; i < 8; i++) {
+
+        clearScreen();
+
+        cout << "\n\n";
+
+        cout << "        *       .       *\n";
+        cout << "   .          \\ | /          .\n";
+        cout << "       *     -- ♥ --     *\n";
+        cout << "   .          / | \\          .\n";
+        cout << "        *       .       *\n";
+
+        wait(180);
+    }
+}
+
+int main() {
+
+    // Starting message
+    clearScreen();
+
+    cout << "\033[1;35m";
+    cout << "\n\n";
+    cout << "       ✨ A SPECIAL SURPRISE ✨\n";
+    cout << "\n";
+    cout << "          Loading...\n";
+    cout << "\033[0m";
+
+    wait(1800);
+
+    // Heart grows
+    for (int size = 1; size <= 7; size++) {
+        showHeart(size);
+        wait(180);
+    }
+
+    // Heart pulse
+    for (int i = 0; i < 6; i++) {
+
+        showHeart(7);
+        wait(180);
+
+        showHeart(6);
+        wait(180);
+    }
+
+    // Burst
+    burst();
+
+    // Final reveal
+    clearScreen();
+
+    cout << "\033[1;36m";
+
+    cout << "\n\n";
+    cout << "       ✨      *      ✨      *      ✨\n\n";
+
+    cout << "\033[1;35m";
+
+    cout << "          H A P P Y   B I R T H D A Y\n\n";
+
+    cout << "\033[1;31m";
+
+    cout << "                 ♥ ♥ ♥\n";
+    cout << "              ♥  DEEPIKA  ♥\n";
+    cout << "                 ♥ ♥ ♥\n\n";
+
+    cout << "\033[1;33m";
+
+    cout << "       🎂 WISH YOU ENDLESS HAPPINESS 🎂\n\n";
+
+    cout << "\033[1;36m";
+
+    cout << "       ✨ LOVE  •  SMILES  •  HAPPINESS ✨\n\n";
+
+    cout << "       ✨      *      ✨      *      ✨\n";
+
+    cout << "\033[0m";
+
+    return 0;
+}
